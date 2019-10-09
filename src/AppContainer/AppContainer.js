@@ -4,6 +4,7 @@ import WelcomeScreen from '../screens/WelcomeScreen/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen/RegisterScreen';
 import ForgotPassScreen from '../screens/ForgotPassScreen/ForgotPassScreen';
+import ResetPassword from '../screens/ResetPassword/ResetPassword';
 
 
 const AppContainer = createStackNavigator({
@@ -27,6 +28,12 @@ const AppContainer = createStackNavigator({
       },
       Frogotscreen: {
         screen: ForgotPassScreen,
+        navigationOptions: {
+          header:null
+        }
+      },
+      Resetpass: {
+        screen: ResetPassword,
         navigationOptions: {
           header:null
         }

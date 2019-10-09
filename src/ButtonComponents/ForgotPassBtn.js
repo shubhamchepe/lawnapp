@@ -12,7 +12,7 @@ class ForgotPassBtn extends Component {
   render() {
     return (
         
-        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Loginscreen')}} style={{backgroundColor:'#3f9d45',
+        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Resetpass')}} style={{backgroundColor:'#3f9d45',
         width:300,
         height:50,
         borderRadius:8,

@@ -12,12 +12,14 @@ import { View,
   ScrollView,
   Picker } from 'react-native';
 import ForgotPassBtn from '../../ButtonComponents/ForgotPassBtn';
+import { heightPercentageToDP, widthPercentageToDP } from '../../utils/functions';
+import { RFValue } from 'react-native-responsive-fontsize';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class ForgotPassScreenComp extends Component {
   constructor(props) {
     super(props);
-    this.position = new Animated.ValueXY({x:0,y:80});
+    this.position = new Animated.ValueXY({x:0,y:100});
     this.state = {
       opacity: new Animated.Value(0),
       username:'',
@@ -44,7 +46,7 @@ class ForgotPassScreenComp extends Component {
    myAnimation(){
        this.position.setValue({x:0,y:130});
        Animated.spring(this.position, {
-         toValue: {x:0,y:100},
+         toValue: {x:0,y:80},
          duration: 6000,
          delay:1000,
          stiffness:50,
@@ -78,7 +80,7 @@ class ForgotPassScreenComp extends Component {
   <Animated.View style={[this.position.getLayout(),styles.container]}>
   <Animated.Image 
   onload={this.onload}
-   style={{width:200,height:200,opacity:this.state.opacity}}
+   style={{width:widthPercentageToDP('25%'),height:heightPercentageToDP('25%'),opacity:this.state.opacity}}
    source= {require('../../../assets/icons/logo/icon.png')}
   />
   <Text style={styles.textStyle}>Forgot Password Screen</Text>
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
   textStyle:{
       color:'#3f9d45',
       fontWeight:'700',
-      fontSize:25
+      fontSize:RFValue(25)
   },
   container:{
       flex:1,
@@ -118,58 +120,32 @@ const styles = StyleSheet.create({
       flexDirection:'column',
       justifyContent:'center',
       alignItems:'center',
-      marginTop:120
+      marginTop:heightPercentageToDP('16%')
   },
   LoginUserInput:{
-      height:50,
-      width:340,
+    height:heightPercentageToDP('7%'),
+    width:widthPercentageToDP('85%'),
       borderRadius:8,
       backgroundColor:'#E7E7E7',
-      fontSize:16,
+      fontSize:RFValue(16),
       paddingLeft:30,
       color:'#ffffff',
       margin: 10
     },
-    LoginUserInput1:{
-      height:50,
-      width:340,
-      borderRadius:8,
-      backgroundColor:'#E7E7E7',
-      fontSize:16,
-      paddingLeft:30,
-      color:'#ffffff'
-    },
     LoginBtnTxt:{
-        fontSize:20,
+        fontSize:RFValue(20),
         fontWeight:"700",
         color:'#fff'
     },
     LoginBtn:{
         backgroundColor:'#3f9d45',
-        width:300,
-        height:50,
+        height:heightPercentageToDP('7%'),
+        width:widthPercentageToDP('75%'),
         borderRadius:8,
         alignItems:'center',
         justifyContent:'center',
         margin: 10,
-    },
-    LoginWidFBBtnTxt:{
-      fontSize:20,
-      fontWeight:"700",
-      color:'#fff'
-  },
-    LoginWidFB:{
-      flexDirection:'row',
-      backgroundColor:'#3b5998',
-      width:300,
-      height:50,
-      borderRadius:8,
-      alignItems:'center',
-      justifyContent:'space-between',
-      paddingLeft:40,
-      paddingRight:40,
-      margin: 10,
-  }
+    }
 });
 
 export default ForgotPassScreenComp;

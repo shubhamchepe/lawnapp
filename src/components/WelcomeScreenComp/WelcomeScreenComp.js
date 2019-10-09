@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text,Image,Button ,StatusBar,StyleSheet,ActivityIndicator} from 'react-native';
-import ButtonComp from '../../ButtonComponents/Button'
+import {widthPercentageToDP,heightPercentageToDP} from '../../utils/functions';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 class WelcomeScreenComp extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class WelcomeScreenComp extends Component {
          barStyle="light-content"
         />
         <Image 
-         style={{width:200,height:200}}
+         style={{width:widthPercentageToDP('25%'),height:heightPercentageToDP('25%')}}
          source= {require('../../../assets/icons/logo/icon.png')}
         />
         <View>
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     textStyle:{
         color:'#3f9d45',
         fontWeight:'700',
-        fontSize:25
+        fontSize:RFValue(25)
     }
 });
 

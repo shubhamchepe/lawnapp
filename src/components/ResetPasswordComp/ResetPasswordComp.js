@@ -8,7 +8,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import axios from 'axios';
 const apiBaseUrl = "https://api.99lawns.com/api/"
 
-class LoginScreenComp extends Component {
+class ResetPasswordComp extends Component {
   constructor(props) {
     super(props);
     this.position = new Animated.ValueXY({x:0,y:10});
@@ -90,13 +90,13 @@ class LoginScreenComp extends Component {
    style={{width:widthPercentageToDP('20%'),height:heightPercentageToDP('20%'),opacity:this.state.opacity}}
    source= {require('../../../assets/icons/logo/icon.png')}
   />
-  <Text style={styles.textStyle}>Login Screen</Text>
+  <Text style={styles.textStyle}>Reset Password</Text>
   </Animated.View>
   <View style={styles.InputContainer}>
       <Text style={{color:'green',fontSize:RFValue(15)}}>{this.state.loginStatus}</Text>
   <TextInput 
       style={[styles.LoginUserInput,{color:'#000'}]}
-      placeholder={'username'}
+      placeholder={'New Password'}
       placeholderTextColor={'#6e6e6e'}
       underlineColorAndroid='transparent'
       clearButtonMode = 'always'
@@ -106,7 +106,7 @@ class LoginScreenComp extends Component {
                  />
  <TextInput 
       style={[styles.LoginUserInput1,{color:'#000'}]}
-      placeholder={'password'}
+      placeholder={'Confirm Password'}
       placeholderTextColor={'#6e6e6e'}
       underlineColorAndroid='transparent'
       clearButtonMode = 'always'
@@ -115,20 +115,9 @@ class LoginScreenComp extends Component {
       autoCorrect={false}
                  />
     <TouchableOpacity style={styles.LoginBtn} onPress={() => this.SignInUser()}>
-        <Text style={styles.LoginBtnTxt}>Login</Text>
+        <Text style={styles.LoginBtnTxt}>Done</Text>
     </TouchableOpacity>
-    <View style={{flexDirection:'row',margin: 15,}}>
-        <Text style={{color:'#696969',fontWeight:'700',fontSize:RFValue(15)}}>
-            Don't have an account? 
-        </Text>
-        <RegisterButton/>
-    </View>
-    <TouchableOpacity style={styles.LoginWidFB}>
-        <Text style={styles.LoginWidFBBtnTxt}>login with facebook</Text>
-        <Icon name="facebook-square" size={30} color="#fff" />
-    </TouchableOpacity>
-   <ForgotPassBtn/>
-  </View>
+     </View>
   </View>
   </ScrollView>
   </KeyboardAvoidingView>
@@ -207,4 +196,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LoginScreenComp;
+export default ResetPasswordComp;

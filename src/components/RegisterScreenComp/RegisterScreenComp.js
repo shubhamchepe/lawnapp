@@ -12,7 +12,10 @@ import { View,
   ScrollView,
   Picker } from 'react-native';
 import GoToLoginButton from '../../ButtonComponents/GoToLoginButton';
+import { CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { heightPercentageToDP, widthPercentageToDP } from '../../utils/functions';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 class RegisterScreenComp extends Component {
   constructor(props) {
@@ -22,7 +25,11 @@ class RegisterScreenComp extends Component {
       opacity: new Animated.Value(0),
       username:'',
       password:'',
-      language:''
+      language:'',
+      check1:false,
+      check2:false,
+      check3:false
+
     };
   }
 
@@ -42,9 +49,9 @@ class RegisterScreenComp extends Component {
    }
  
    myAnimation(){
-       this.position.setValue({x:0,y:130});
+       this.position.setValue({x:0,y:60});
        Animated.spring(this.position, {
-         toValue: {x:0,y:100},
+         toValue: {x:0,y:50},
          duration: 6000,
          delay:1000,
          stiffness:50,
@@ -67,6 +74,48 @@ class RegisterScreenComp extends Component {
     
   }
 
+  check1 = () => {
+    if(this.state.check1 == false){
+      this.setState({
+        check1:true
+      })
+    }else{
+      if(this.state.check1 == true){
+        this.setState({
+          check1:false
+        })
+      }
+    }
+  }
+
+  check2 = () => {
+    if(this.state.check2 == false){
+      this.setState({
+        check2:true
+      })
+    }else{
+      if(this.state.check2 == true){
+        this.setState({
+          check2:false
+        })
+      }
+    }
+  }
+
+  check3 = () => {
+    if(this.state.check3 == false){
+      this.setState({
+        check3:true
+      })
+    }else{
+      if(this.state.check3 == true){
+        this.setState({
+          check3:false
+        })
+      }
+    }
+  }
+
   render() {
     return (
       <ScrollView>
@@ -78,7 +127,7 @@ class RegisterScreenComp extends Component {
   <Animated.View style={[this.position.getLayout(),styles.container]}>
   <Animated.Image 
   onload={this.onload}
-   style={{width:200,height:200,opacity:this.state.opacity}}
+   style={{width:widthPercentageToDP('25%'),height:heightPercentageToDP('25%'),opacity:this.state.opacity}}
    source= {require('../../../assets/icons/logo/icon.png')}
   />
   <Text style={styles.textStyle}>Register Screen</Text>
@@ -104,7 +153,26 @@ class RegisterScreenComp extends Component {
       onChangeText={password => this.setState({password})}
       autoCorrect={false}
                  />
-                 <Picker
+                 <CheckBox
+  title='I need a lawn services'
+  checked={this.state.check1}
+  checkedIcon='check-square-o'
+  onPress={() => this.check1()}
+/>
+<CheckBox
+  title='I am lawn services provider'
+  checked={this.state.check2}
+  checkedIcon='check-square-o'
+  onPress={() => this.check2()}
+/>
+<CheckBox
+  title='I sell lawn related products'
+  checked={this.state.check3}
+  checkedIcon='check-square-o'
+  onPress={() => this.check3()}
+/>
+
+                 {/* <Picker
                  mode='dropdown'
   selectedValue={this.state.language}
   style={{height: 50, width: 340,backgroundColor:'#E7E7E7',margin: 10,borderRadius:8}}
@@ -114,7 +182,7 @@ class RegisterScreenComp extends Component {
   <Picker.Item label="I need a lawn services" value="I need a lawn services" />
   <Picker.Item label="I am lawn services" value="I am lawn services" />
   <Picker.Item label="I sell lawn related products" value="I sell lawn related products" />
-</Picker>
+</Picker> */}
     <TouchableOpacity style={styles.LoginBtn} onPress={() => this.SignInUser()}>
         <Text style={styles.LoginBtnTxt}>Register</Text>
     </TouchableOpacity>
@@ -131,7 +199,7 @@ const styles = StyleSheet.create({
   textStyle:{
       color:'#3f9d45',
       fontWeight:'700',
-      fontSize:25
+      fontSize:RFValue(25)
   },
   container:{
       flex:1,
@@ -142,51 +210,51 @@ const styles = StyleSheet.create({
       flexDirection:'column',
       justifyContent:'center',
       alignItems:'center',
-      marginTop:120
+      marginTop:heightPercentageToDP('11%')
   },
   LoginUserInput:{
-      height:50,
-      width:340,
+    height:heightPercentageToDP('7%'),
+    width:widthPercentageToDP('85%'),
       borderRadius:8,
       backgroundColor:'#E7E7E7',
-      fontSize:16,
+      fontSize:RFValue(16),
       paddingLeft:30,
       color:'#ffffff',
       margin: 10
     },
     LoginUserInput1:{
-      height:50,
-      width:340,
+      height:heightPercentageToDP('7%'),
+      width:widthPercentageToDP('85%'),
       borderRadius:8,
       backgroundColor:'#E7E7E7',
-      fontSize:16,
+      fontSize:RFValue(16),
       paddingLeft:30,
       color:'#ffffff'
     },
     LoginBtnTxt:{
-        fontSize:20,
+        fontSize:RFValue(20),
         fontWeight:"700",
         color:'#fff'
     },
     LoginBtn:{
         backgroundColor:'#3f9d45',
-        width:300,
-        height:50,
+        height:heightPercentageToDP('7%'),
+        width:widthPercentageToDP('75%'),
         borderRadius:8,
         alignItems:'center',
         justifyContent:'center',
         margin: 10,
     },
     LoginWidFBBtnTxt:{
-      fontSize:20,
+      fontSize:RFValue(20),
       fontWeight:"700",
       color:'#fff'
   },
     LoginWidFB:{
       flexDirection:'row',
       backgroundColor:'#3b5998',
-      width:300,
-      height:50,
+      height:heightPercentageToDP('7%'),
+      width:widthPercentageToDP('75%'),
       borderRadius:8,
       alignItems:'center',
       justifyContent:'space-between',
