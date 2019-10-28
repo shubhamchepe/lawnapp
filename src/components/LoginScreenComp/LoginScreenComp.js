@@ -114,7 +114,7 @@ class LoginScreenComp extends Component {
       onChangeText={password => this.setState({password})}
       autoCorrect={false}
                  />
-    <TouchableOpacity style={styles.LoginBtn} onPress={() => this.SignInUser()}>
+    <TouchableOpacity style={styles.LoginBtn} onPress={() => this.props.navigation.navigate('Homescreen')}>
         <Text style={styles.LoginBtnTxt}>Login</Text>
     </TouchableOpacity>
     <View style={{flexDirection:'row',margin: 15,}}>

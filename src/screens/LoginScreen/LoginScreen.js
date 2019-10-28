@@ -12,7 +12,7 @@ class LoginScreen extends Component {
 
   render() {
     return (
-      <LoginScreenComp/>
+      <LoginScreenComp navigation={this.props.navigation}/>
     );
   }
 }

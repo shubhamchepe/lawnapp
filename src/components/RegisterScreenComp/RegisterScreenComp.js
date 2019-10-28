@@ -11,11 +11,13 @@ import { View,
   KeyboardAvoidingView,
   ScrollView,
   Picker } from 'react-native';
+import axios from 'axios';
 import GoToLoginButton from '../../ButtonComponents/GoToLoginButton';
 import { CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { heightPercentageToDP, widthPercentageToDP } from '../../utils/functions';
 import { RFValue } from 'react-native-responsive-fontsize';
+const apiBaseUrl = "https://api.99lawns.com/api/";
 
 class RegisterScreenComp extends Component {
   constructor(props) {
@@ -27,8 +29,14 @@ class RegisterScreenComp extends Component {
       password:'',
       language:'',
       check1:false,
+      user_type1:'',
       check2:false,
-      check3:false
+      user_type2:'',
+      check3:false,
+      user_type3:'',
+      user_type:'',
+      regStatus:'',
+      statusColor:''
 
     };
   }
@@ -60,29 +68,53 @@ class RegisterScreenComp extends Component {
    }
  
    SignInUser = async () => {
- 
+      await this.EvalUserType()
     var payload = {
         "userid": this.state.username,
-        "password": this.state.password 
+        "password": this.state.password,
+        "user_type": this.state.user_type 
     }
     try{
-     response = await axios.post(apiBaseUrl + 'login', payload).then((response) => response.json())
-     console.log(response);
+     const response = await axios.post(apiBaseUrl + '/register', payload)
+     console.log(response)
+     if(response.data.code == 200){
+        this.setState({
+            regStatus:'Success',
+            statusColor:'green'
+            //navigate to some user screen
+        })
+     } else{
+         this.setState({
+             regStatus:'Something Went Wrong!',
+             statusColor:'red'
+         })
+     }
     } catch(error){
         console.log(error);
     }
     
   }
 
+  EvalUserType = () =>{
+      let UserType = [this.state.user_type1,this.state.user_type2,this.state.user_type3]
+      let something = UserType.join('')
+      this.setState({
+        user_type: something
+      })
+    
+  }
+
   check1 = () => {
     if(this.state.check1 == false){
       this.setState({
-        check1:true
+        check1:true,
+        user_type1:'B'
       })
     }else{
       if(this.state.check1 == true){
         this.setState({
-          check1:false
+          check1:false,
+          user_type1:''
         })
       }
     }
@@ -91,12 +123,14 @@ class RegisterScreenComp extends Component {
   check2 = () => {
     if(this.state.check2 == false){
       this.setState({
-        check2:true
+        check2:true,
+        user_type2:'S'
       })
     }else{
       if(this.state.check2 == true){
         this.setState({
-          check2:false
+          check2:false,
+          user_type2:''
         })
       }
     }
@@ -105,12 +139,14 @@ class RegisterScreenComp extends Component {
   check3 = () => {
     if(this.state.check3 == false){
       this.setState({
-        check3:true
+        check3:true,
+        user_type3:'V'
       })
     }else{
       if(this.state.check3 == true){
         this.setState({
-          check3:false
+          check3:false,
+          user_type3:''
         })
       }
     }
@@ -133,6 +169,7 @@ class RegisterScreenComp extends Component {
   <Text style={styles.textStyle}>Register Screen</Text>
   </Animated.View>
   <View style={styles.InputContainer}>
+  <Text style={{color:'green',fontSize:RFValue(15)}}>{this.state.regStatus}</Text>
   <TextInput 
       style={[styles.LoginUserInput,{color:'#000'}]}
       placeholder={'username'}

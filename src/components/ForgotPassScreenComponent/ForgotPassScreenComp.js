@@ -11,10 +11,14 @@ import { View,
   KeyboardAvoidingView,
   ScrollView,
   Picker } from 'react-native';
-import ForgotPassBtn from '../../ButtonComponents/ForgotPassBtn';
+//import ForgotPassBtn from '../../ButtonComponents/ForgotPassBtn';
 import { heightPercentageToDP, widthPercentageToDP } from '../../utils/functions';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
+const apiBaseUrl = "https://api.99lawns.com/api/"
+import { withNavigation } from 'react-navigation';
+
 
 class ForgotPassScreenComp extends Component {
   constructor(props) {
@@ -23,8 +27,9 @@ class ForgotPassScreenComp extends Component {
     this.state = {
       opacity: new Animated.Value(0),
       username:'',
-      password:'',
-      language:''
+      language:'',
+      loginStatus:'',
+      statusColor:''
     };
   }
 
@@ -55,14 +60,26 @@ class ForgotPassScreenComp extends Component {
    }
  
    SignInUser = async () => {
- 
+
     var payload = {
-        "userid": this.state.username,
-        "password": this.state.password 
+        "userid": this.state.username
     }
     try{
-     response = await axios.post(apiBaseUrl + 'login', payload).then((response) => response.json())
-     console.log(response);
+     const response = await axios.post(apiBaseUrl + '/forgetpwd', payload)
+     console.log(response)
+     if(response.data.code == 200){
+        this.setState({
+            loginStatus:'Success',
+            statusColor:'green'
+            //navigate to some user screen
+        })
+        this.props.navigation.navigate('Resetpass')
+     } else{
+         this.setState({
+             loginStatus:'Something Went Wrong!',
+             statusColor:'red'
+         })
+     }
     } catch(error){
         console.log(error);
     }
@@ -86,6 +103,7 @@ class ForgotPassScreenComp extends Component {
   <Text style={styles.textStyle}>Forgot Password Screen</Text>
   </Animated.View>
   <View style={styles.InputContainer}>
+  <Text style={{color:'green',fontSize:RFValue(15)}}>{this.state.loginStatus}</Text>
   <TextInput 
       style={[styles.LoginUserInput,{color:'#000'}]}
       placeholder={'Enter your email'}
@@ -96,7 +114,17 @@ class ForgotPassScreenComp extends Component {
       onChangeText={username => this.setState({username})}
       autoCorrect={false}
                  />
-  <ForgotPassBtn/>
+  <TouchableOpacity onPress={() => {this.SignInUser()}} style={{backgroundColor:'#3f9d45',
+        width:300,
+        height:50,
+        borderRadius:8,
+        alignItems:'center',
+        justifyContent:'center',
+        margin: 10}}>
+        <Text style={{fontSize:20,
+        fontWeight:"700",
+        color:'#fff'}}>Send</Text>
+    </TouchableOpacity>
   </View>
   </View>
   </ScrollView>
@@ -148,4 +176,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ForgotPassScreenComp;
+export default withNavigation(ForgotPassScreenComp);
